@@ -18,9 +18,25 @@ export class CustomerService {
     return this.http.get('http://localhost:3000/api/customers').pipe(map(res => res));
   }
 
+  getCustomer(id) {
+    // return an observable
+    return this.http.get('http://localhost:3000/api/customers/'+id).pipe(map(res => res));
+  }
+
   saveCustomer(customer) {
     let headers = new HttpHeaders();
     headers.append('content-type', 'application/json');
     return this.http.post('http://localhost:3000/api/customers', customer, {headers: headers}).pipe(map(res=>res));
+  }
+
+  updateCustomer(id, customer) {
+    let headers = new HttpHeaders();
+    headers.append('content-type', 'application/json');
+    return this.http.put('http://localhost:3000/api/customers/'+id, customer, {headers: headers}).pipe(map(res=>res));
+  }
+  
+  deleteCustomer(id) {
+    // return an observable
+    return this.http.delete('http://localhost:3000/api/customers/'+id).pipe(map(res => res));
   }
 }

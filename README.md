@@ -1,4 +1,10 @@
 ## Creating an Invoicer app using MEAN 
+### Express: 4.17.1
+### Mongoose: 5.9.12
+### Angular CLI: 9.1.4
+### Node: 12.16.2
+### OS: darwin x64
+
 ```
 main: app.js
 routes/ contains the routing for front end

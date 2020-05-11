@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// the reason why we need Router is because we need to do a re-direct
 import { Router } from '@angular/router'
 import { CustomerService } from '../../services/customer.service';
 

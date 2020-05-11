@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 // Mongooese Connect
-mongoose.connect('mongodb://localhost/invoicer',  {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/invoicer',  {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 
 // Init App
@@ -14,9 +14,11 @@ const port = process.env.PORT || 3000;
 // Enable CORS
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"
+    ); // need to allow all 
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-  });
+});
 
   // client folder, the agular app placeholder
 app.use(express.static(__dirname+'/client'));

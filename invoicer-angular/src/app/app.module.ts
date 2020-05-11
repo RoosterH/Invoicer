@@ -9,7 +9,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { AddCustomerComponent } from './components/add-customer/add-customer.component';
 import { EditCustomerComponent } from './components/edit-customer/edit-customer.component';
-import { CustomersDetailsComponent } from './components/customers-details/customers-details.component';
+import { CustomerDetailsComponent } from './components/customers-details/customers-details.component';
 import { AddInvoiceComponent } from './components/add-invoice/add-invoice.component';
 
 // services from each component, need to
@@ -22,7 +22,7 @@ import {CustomerService} from './services/customer.service';
     CustomersComponent,
     AddCustomerComponent,
     EditCustomerComponent,
-    CustomersDetailsComponent,
+    CustomerDetailsComponent,
     AddInvoiceComponent
   ],
   imports: [
