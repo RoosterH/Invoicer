@@ -105,7 +105,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       component: _components_add_customer_add_customer_component__WEBPACK_IMPORTED_MODULE_3__["AddCustomerComponent"]
     }, {
       path: 'customer/:id',
-      component: _components_customers_details_customers_details_component__WEBPACK_IMPORTED_MODULE_4__["CustomerDetailsComponent"]
+      component: _components_customers_details_customers_details_component__WEBPACK_IMPORTED_MODULE_4__["CustomerDetailsComponent"],
+      runGuardsAndResolvers: 'always'
     }, {
       path: 'customer/edit/:id',
       component: _components_edit_customer_edit_customer_component__WEBPACK_IMPORTED_MODULE_5__["EditCustomerComponent"]
@@ -125,7 +126,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       factory: function AppRoutingModule_Factory(t) {
         return new (t || AppRoutingModule)();
       },
-      imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+      imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, {
+        onSameUrlNavigation: 'reload'
+      })], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
     });
 
     (function () {
@@ -141,7 +144,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppRoutingModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-          imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+          imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, {
+            onSameUrlNavigation: 'reload'
+          })],
           exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         }]
       }], null, null);
@@ -1358,7 +1363,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this4 = this;
 
           this.customerService.deleteInvoice(id).subscribe(function (invoice) {
-            _this4.router.navigate(['/customer/' + _this4.id]);
+            // this won't reload the page
+            // this.router.navigate(['/customer/'+this.id]);
+            // using the following method will reload the current page after delete 
+            var currentUrl = _this4.router.url;
+
+            _this4.router.navigateByUrl('/', {
+              skipLocationChange: true
+            }).then(function () {
+              _this4.router.navigate([currentUrl]);
+            });
           });
         }
       }]);

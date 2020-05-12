@@ -52,20 +52,20 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     { path: '', component: _components_customers_customers_component__WEBPACK_IMPORTED_MODULE_2__["CustomersComponent"] },
     { path: 'customer/add', component: _components_add_customer_add_customer_component__WEBPACK_IMPORTED_MODULE_3__["AddCustomerComponent"] },
-    { path: 'customer/:id', component: _components_customers_details_customers_details_component__WEBPACK_IMPORTED_MODULE_4__["CustomerDetailsComponent"] },
+    { path: 'customer/:id', component: _components_customers_details_customers_details_component__WEBPACK_IMPORTED_MODULE_4__["CustomerDetailsComponent"], runGuardsAndResolvers: 'always' },
     { path: 'customer/edit/:id', component: _components_edit_customer_edit_customer_component__WEBPACK_IMPORTED_MODULE_5__["EditCustomerComponent"] },
     { path: 'invoice/add/:customer_id', component: _components_add_invoice_add_invoice_component__WEBPACK_IMPORTED_MODULE_6__["AddInvoiceComponent"] }
 ];
 class AppRoutingModule {
 }
 AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
-AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { onSameUrlNavigation: 'reload' })],
         _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppRoutingModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-                imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+                imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { onSameUrlNavigation: 'reload' })],
                 exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
             }]
     }], null, null); })();
@@ -668,7 +668,13 @@ class CustomerDetailsComponent {
     }
     onDeleteClick(id) {
         this.customerService.deleteInvoice(id).subscribe(invoice => {
-            this.router.navigate(['/customer/' + this.id]);
+            // this won't reload the page
+            // this.router.navigate(['/customer/'+this.id]);
+            // using the following method will reload the current page after delete 
+            let currentUrl = this.router.url;
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                this.router.navigate([currentUrl]);
+            });
         });
     }
 }
