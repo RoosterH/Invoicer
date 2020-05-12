@@ -38,3 +38,9 @@ app.use('/api/customers', customers);
 => /models/customers.js module.exports.addCustomer
 => mongoose.create() write data to MongoDB
 ```
+### Known issue
+```
+In Customer Details page, hit "Refresh" on Chrome will get "Cannot GET /customer/5eba2207e4cd93edebe14b24"
+Console "Failed to load resource: the server responded with a status of 404 (Not Found)"
+This only happens using Angular app.  It didn't have the problem on development code using port 4200.
+```
