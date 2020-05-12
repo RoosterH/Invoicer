@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 // the reason why we need Router is because we need to do a re-direct
 // ActivateRoute and Params are for getting the :id
-import { ActivatedRoute, Params } from '@angular/router'
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
 
 @Component({
@@ -11,21 +11,44 @@ import { CustomerService } from '../../services/customer.service';
 })
 export class CustomerDetailsComponent implements OnInit {
   id: string;
-  customer: Customer;
-  //customer: Customer;
-  invoices: [];
-  //customer: Customer; // Customer is an interface(similar to struct) defined below
-  //invoices: Invoice[]; // Invoice interface defined below
-
-  constructor(private customerService: CustomerService, private route: ActivatedRoute) { }
+  customer;
+  invoices;
+  
+  constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // get the 'id' param from routing infomration
-    this.id = this.route.snapshot.params['id'];
+    //this.id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params.id;
+   
     this.customerService.getCustomer(this.id).subscribe(customer => {
       this.customer = <Customer>customer;
     });
-  } 
+
+    this.customerService.getInvoices(this.id).subscribe(invoices => {
+      this.invoices = invoices;
+    });
+  }
+
+  markPaid(id, invoice) {
+    invoice.status = 'paid';
+    this.customerService.markPaid(id, invoice).subscribe(invoice => {
+      invoice = 'paid';
+    });
+  }
+
+  onDeleteClick(id) {
+    this.customerService.deleteInvoice(id).subscribe(invoice => {
+      // this won't reload the page
+      // this.router.navigate(['/customer/'+this.id]);
+
+      // using the following method will reload the current page after delete 
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+      });
+    });
+  }
 }
 
 export interface Customer {

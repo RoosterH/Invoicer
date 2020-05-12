@@ -1,4 +1,5 @@
 ## Creating an Invoicer app using MEAN 
+### This is the Inovicer MEAN APP project listed in eduonix.com course "Projects in MongoDB - Learn MongoDB Building Porjects" 
 ### Express: 4.17.1
 ### Mongoose: 5.9.12
 ### Angular CLI: 9.1.4

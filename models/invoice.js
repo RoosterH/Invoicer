@@ -39,7 +39,6 @@ module.exports.getInvoiceById = (id, callback, limit) => {
 
 // Get customer invoices
 module.exports.getCustomerInvoices = (customer_id, callback, limit) => {
-    console.log('here');
     const query = {customer: customer_id};
     Invoice.find(query, callback).limit(limit).sort([['created_at', 'ascending']]);
 }

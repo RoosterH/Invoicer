@@ -44,7 +44,9 @@ module.exports.getCustomers = (callback, limit) => {
 
 // Get a customer
 module.exports.getCustomerById = (id, callback) => {
+    console.log('in customer model');
     Customer.findById(id, callback);
+    console.log('out customer model');
 }
 
 // Add Customer, POST

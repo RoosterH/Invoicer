@@ -16,5 +16,29 @@ give an error for customer.xxx property undefined -->
         <li class="list-group-item"><strong>State: </strong>{{customer.address.state}}</li>
         <li class="list-group-item"><strong>zip: </strong>{{customer.address.zip}}</li>
     </ul>
-</div>
 
+    <h4 class="page-header">Invoices <a routerLink="/invoice/add/{{id}}">Create Inovice</a></h4>
+    <div class="invoices">
+    <table class="table table-stripped">
+        <tr>
+            <th>ID</th>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Due</th>
+            <th></th>
+        </tr>
+        <!-- loop through customers -->
+        <tr *ngFor="let invoice of invoices">
+            <td>{{invoice._id}}</td>
+            <td>{{invoice.service}}</td>
+            <td>{{invoice.price}}</td>
+            <td>{{invoice.status}}</td>
+            <td>{{invoice.due}}</td>
+            <td>
+                <a (click)="markPaid(invoice._id, invoice)" class="btn btn-primary">Mark Paid</a>
+                <a hred="" (click)="onDeleteClick(invoice._id)" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>

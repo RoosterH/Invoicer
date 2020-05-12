@@ -39,4 +39,25 @@ export class CustomerService {
     // return an observable
     return this.http.delete('http://localhost:3000/api/customers/'+id).pipe(map(res => res));
   }
+
+  getInvoices(customer_id) {
+    // return an observable
+    return this.http.get('http://localhost:3000/api/invoices/customers/'+customer_id).pipe(map(res => res));
+  }
+
+  markPaid(id, invoice) {
+    let headers = new HttpHeaders();
+    headers.append('content-type', 'application/json');
+    return this.http.put('http://localhost:3000/api/invoices/'+id, invoice, {headers: headers}).pipe(map(res=>res));
+  }
+
+  deleteInvoice(id) {
+    return this.http.delete('http://localhost:3000/api/invoices/'+id).pipe(map(res=>res));
+  }
+
+  saveInvoice(invoice) {
+    let headers = new HttpHeaders();
+    headers.append('content-type', 'application/json');
+    return this.http.post('http://localhost:3000/api/invoices', invoice, {headers: headers}).pipe(map(res=>res));
+  }
 }
