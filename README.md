@@ -14,6 +14,16 @@ clients/ contains codes that will be used for client side
 ```
 ## MEAN code structure
 ```
+Front End Routing is defined in app-routing.module.ts 
+Routes = [
+  {path: '', component: CustomersComponent},
+  {path: 'customer/add', component: AddCustomerComponent},
+  {path: 'customer/:id', component: CustomerDetailsComponent, runGuardsAndResolvers: 'always'},
+  {path: 'customer/edit/:id', component: EditCustomerComponent},
+  {path: 'invoice/add/:customer_id', component: AddInvoiceComponent}
+]
+where Angular app.component.html defined <router-outlet> and index.html defines <app-root>
+
 We have /project/project-angular/src/app/components/
 	   /project/project-angular/src/app/services/
 components consists of 
